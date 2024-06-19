@@ -2245,7 +2245,7 @@ class Trainer:
                             torch.profiler.ProfilerActivity.CPU,
                             torch.profiler.ProfilerActivity.CUDA,
                         ],
-                        schedule=torch.profiler.schedule(wait=0, warmup=3, active=3, repeat=1),
+                        schedule=torch.profiler.schedule(wait=0, warmup=20, active=3, repeat=1),
                         on_trace_ready=torch.profiler.tensorboard_trace_handler(prof_dir),
                 ) as prof:
                     step = -1
