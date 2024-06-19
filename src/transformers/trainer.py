@@ -2220,6 +2220,11 @@ class Trainer:
                 steps_trained_in_current_epoch = 0
                 rng_to_sync = True
 
+            import deepspeed
+            compile_ds = os.getenv("COMPILE_DS", "0")
+            if isinstance(model, deepspeed.DeepSpeedEngine) and hasattr(model, "compile") and compile_ds == "1":
+                logger.info(f"Compiling model")
+                model.compile()
 
             profile = True
             # profile = False
@@ -2245,8 +2250,6 @@ class Trainer:
                 ) as prof:
                     step = -1
                     for step, inputs in enumerate(epoch_iterator):
-                        print(f"_inner_loop {step=}")
-
                         total_batched_samples += 1
 
                         if self.args.include_num_input_tokens_seen:
