@@ -1018,8 +1018,8 @@ class LlamaModel(LlamaPreTrainedModel):
         # `fullgraph=True`. See more context in https://github.com/huggingface/transformers/pull/29114
 
         if self.config._attn_implementation == "flash_attention_2":
-            if attention_mask is not None and 0.0 in attention_mask:
-                return attention_mask
+            # if attention_mask is not None and 0.0 in attention_mask:
+            #     return attention_mask
             return None
 
         # For SDPA, when possible, we will rely on its `is_causal` argument instead of its `attn_mask` argument, in
